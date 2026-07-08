@@ -55,7 +55,7 @@ app.use('/api', (req, res, next) => {
 
 app.use(errorHandler);
 
-const io = setupSocket(httpServer);
+setupSocket(httpServer);
 
 export default app;
 export { app, httpServer };

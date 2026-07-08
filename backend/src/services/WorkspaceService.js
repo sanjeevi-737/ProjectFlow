@@ -1,7 +1,7 @@
 import Workspace from '../models/Workspace.js';
 import Invitation from '../models/Invitation.js';
 import User from '../models/User.js';
-import { generateInviteCode, sanitizeUser } from '../utils/helpers.js';
+import { generateInviteCode } from '../utils/helpers.js';
 import { ApiError } from '../utils/apiResponse.js';
 import { sendEmail } from '../emails/emailService.js';
 import config from '../config/index.js';

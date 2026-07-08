@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { authenticate } from '../middlewares/auth.js';
-import { validate } from '../middlewares/validate.js';
 import * as BoardController from '../controllers/BoardController.js';
 
 const router = Router();

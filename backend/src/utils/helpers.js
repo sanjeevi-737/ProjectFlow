@@ -23,7 +23,8 @@ export const generateInviteCode = () => {
 };
 
 export const sanitizeUser = (user) => {
-  const { password, refreshTokens, emailVerificationToken, emailVerificationExpires, passwordResetToken, passwordResetExpires, __v, ...sanitized } = user.toObject ? user.toObject() : user;
+  const doc = user.toObject ? user.toObject() : user;
+  const { password: _p, refreshTokens: _rt, emailVerificationToken: _evt, emailVerificationExpires: _eve, passwordResetToken: _prt, passwordResetExpires: _pre, __v: _v, ...sanitized } = doc;
   return sanitized;
 };
 

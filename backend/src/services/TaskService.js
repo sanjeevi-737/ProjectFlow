@@ -1,11 +1,9 @@
 import Task from '../models/Task.js';
-import Board from '../models/Board.js';
 import Comment from '../models/Comment.js';
 import ActivityLog from '../models/ActivityLog.js';
 import Notification from '../models/Notification.js';
 import ProjectService from './ProjectService.js';
 import BoardService from './BoardService.js';
-import NotificationService from './NotificationService.js';
 import { emitToBoard, emitToTask, emitToUser } from '../socket/index.js';
 import { ApiError } from '../utils/apiResponse.js';
 
