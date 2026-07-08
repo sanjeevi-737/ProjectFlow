@@ -60,8 +60,25 @@ const io = setupSocket(httpServer);
 export default app;
 export { app, httpServer };
 
+const validateConfig = () => {
+  const required = [
+    ['MONGODB_URI', config.mongodb.uri],
+    ['JWT_ACCESS_SECRET', config.jwt.accessSecret],
+    ['JWT_REFRESH_SECRET', config.jwt.refreshSecret],
+  ];
+
+  const missing = required.filter(([, val]) => !val).map(([key]) => key);
+
+  if (missing.length > 0) {
+    logger.error(`Missing required environment variables: ${missing.join(', ')}`);
+    logger.error('Set these in Railway Dashboard → Variables');
+    throw new Error(`Missing env vars: ${missing.join(', ')}`);
+  }
+};
+
 const startServer = async () => {
   try {
+    validateConfig();
     await connectDB();
     if (config.smtp.user && config.smtp.pass) {
       await verifyEmailConnection();

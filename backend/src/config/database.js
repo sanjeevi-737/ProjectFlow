@@ -3,12 +3,17 @@ import logger from '../utils/logger.js';
 import config from './index.js';
 
 const connectDB = async () => {
+  if (!config.mongodb.uri) {
+    logger.error('MONGODB_URI is not set. Check your environment variables.');
+    throw new Error('MONGODB_URI is required but was not provided');
+  }
+
   try {
     const conn = await mongoose.connect(config.mongodb.uri);
     logger.info(`MongoDB connected: ${conn.connection.host}`);
   } catch (error) {
     logger.error(`MongoDB connection error: ${error.message}`);
-    process.exit(1);
+    throw error;
   }
 
   mongoose.connection.on('error', (err) => {
