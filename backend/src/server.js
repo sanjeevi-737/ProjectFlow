@@ -11,6 +11,7 @@ import connectDB from './config/database.js';
 import logger from './utils/logger.js';
 import { globalLimiter } from './middlewares/rateLimiter.js';
 import errorHandler from './middlewares/errorHandler.js';
+import { ApiError } from './utils/apiResponse.js';
 import routes from './routes/index.js';
 import { setupSocket } from './socket/index.js';
 import { verifyEmailConnection } from './emails/emailService.js';
@@ -21,9 +22,17 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const httpServer = createServer(app);
 
+const allowedOrigins = config.clientUrl.split(',').map(s => s.trim()).filter(Boolean);
+
 app.use(helmet());
 app.use(cors({
-  origin: config.clientUrl,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.some(o => origin.startsWith(o))) {
+      callback(null, true);
+    } else {
+      callback(new Error(`Origin ${origin} not allowed by CORS`));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -39,6 +48,10 @@ app.use(globalLimiter);
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use('/api', routes);
+
+app.use('/api', (req, res, next) => {
+  next(ApiError.notFound(`Route ${req.originalUrl} not found`));
+});
 
 app.use(errorHandler);
 

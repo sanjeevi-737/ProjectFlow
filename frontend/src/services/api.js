@@ -3,7 +3,7 @@ import { store } from '../redux/store';
 import { logout, setCredentials } from '../redux/slices/authSlice';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL ?? '/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -57,7 +57,8 @@ api.interceptors.response.use(
         const refreshToken = store.getState().auth.refreshToken;
         if (!refreshToken) throw new Error('No refresh token');
 
-        const { data } = await axios.post('/api/auth/refresh-token', { refreshToken });
+        const baseURL = import.meta.env.VITE_API_URL ?? '/api';
+        const { data } = await axios.post(`${baseURL}/auth/refresh-token`, { refreshToken });
 
         store.dispatch(setCredentials(data.data));
 
