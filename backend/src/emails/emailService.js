@@ -95,6 +95,11 @@ const templates = {
 };
 
 export const sendEmail = async ({ to, subject, template, data }) => {
+  if (config.env === 'test') {
+    logger.debug(`[TEST] Skipping email to ${to}: ${template}`);
+    return { messageId: 'test-mock-id' };
+  }
+
   try {
     const { subject: emailSubject, html } = templates[template](data);
 

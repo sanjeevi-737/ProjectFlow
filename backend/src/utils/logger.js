@@ -19,29 +19,33 @@ const format = winston.format.combine(
   })
 );
 
+const transports = [
+  new winston.transports.File({
+    filename: 'logs/error.log',
+    level: 'error',
+    maxsize: 5242880,
+    maxFiles: 5,
+  }),
+  new winston.transports.File({
+    filename: 'logs/combined.log',
+    maxsize: 5242880,
+    maxFiles: 5,
+  }),
+];
+
+if (config.env !== 'test') {
+  transports.unshift(
+    new winston.transports.Console({
+      format: winston.format.combine(winston.format.colorize(), format),
+    })
+  );
+}
+
 const logger = winston.createLogger({
   levels,
   level,
   format,
-  transports: [
-    new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        format
-      ),
-    }),
-    new winston.transports.File({
-      filename: 'logs/error.log',
-      level: 'error',
-      maxsize: 5242880,
-      maxFiles: 5,
-    }),
-    new winston.transports.File({
-      filename: 'logs/combined.log',
-      maxsize: 5242880,
-      maxFiles: 5,
-    }),
-  ],
+  transports,
 });
 
 export default logger;
