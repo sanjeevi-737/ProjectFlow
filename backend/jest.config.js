@@ -5,4 +5,5 @@ export default {
   verbose: true,
   forceExit: true,
   transform: {},
+  setupFiles: ['./tests/env.js'],
 };
