@@ -4,6 +4,7 @@
 
 ### Frontend (Vercel) ✅ LIVE
 ```
+https://project-flow-two-lilac.vercel.app
 https://frontend-g020i7lpy-sanjeevi737.vercel.app
 ```
 - Vercel Dashboard: https://vercel.com/sanjeevi737/frontend
@@ -28,7 +29,7 @@ https://projflow-api.onrender.com
 3. **Find `CLIENT_URL`** (currently: `http://localhost:5173`)
 4. **Update to:**
    ```
-   https://frontend-g020i7lpy-sanjeevi737.vercel.app
+   http://localhost:5173,https://frontend-g020i7lpy-sanjeevi737.vercel.app,https://project-flow-two-lilac.vercel.app
    ```
 5. **Save Changes**
 6. **Go to Deployments → Manual Deploy → Deploy latest commit**
@@ -73,7 +74,7 @@ Should return:
 - `NODE_ENV` = `production` ✅
 
 ### Backend (Render Settings)
-- `CLIENT_URL` = `https://frontend-g020i7lpy-sanjeevi737.vercel.app` ⏳ (NEEDS UPDATE)
+- `CLIENT_URL` = `http://localhost:5173,https://frontend-g020i7lpy-sanjeevi737.vercel.app,https://project-flow-two-lilac.vercel.app` ⏳ (NEEDS UPDATE)
 - All other env vars (MongoDB, JWT, SMTP, etc.) should already be set
 
 ---

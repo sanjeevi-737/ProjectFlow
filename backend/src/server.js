@@ -24,7 +24,6 @@ const httpServer = createServer(app);
 
 const allowedOrigins = config.clientUrl.split(',').map(s => s.trim()).filter(Boolean);
 
-app.use(helmet());
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.some(o => origin.startsWith(o))) {
@@ -34,9 +33,11 @@ app.use(cors({
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200,
 }));
+app.use(helmet());
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
