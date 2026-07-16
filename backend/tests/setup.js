@@ -7,7 +7,9 @@ import config from '../src/config/index.js';
 let mongoServer;
 
 export const setupTestDB = async () => {
-  process.env.MONGOMS_SYSTEM_BINARY = 'C:\\Program Files\\MongoDB\\Server\\8.3\\bin\\mongod.exe';
+  if (process.platform === 'win32') {
+    process.env.MONGOMS_SYSTEM_BINARY = 'C:\\Program Files\\MongoDB\\Server\\8.3\\bin\\mongod.exe';
+  }
   process.env.MONGOMS_VERSION = '8.3.4';
   mongoServer = await MongoMemoryServer.create();
   const uri = mongoServer.getUri();
