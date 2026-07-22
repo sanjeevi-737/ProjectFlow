@@ -16,6 +16,7 @@ router.delete('/:id', authenticate, taskIdValidator, validate, TaskController.re
 router.patch('/:id/move', authenticate, taskIdValidator, moveTaskValidator, validate, TaskController.moveTask);
 router.post('/:id/comments', authenticate, taskIdValidator, validate, TaskController.addComment);
 router.get('/:id/comments', authenticate, taskIdValidator, validate, TaskController.getComments);
+router.delete('/:id/comments/:commentId', authenticate, taskIdValidator, validate, TaskController.deleteComment);
 router.patch('/:id/checklist', authenticate, taskIdValidator, validate, TaskController.updateChecklist);
 router.patch('/:id/subtasks', authenticate, taskIdValidator, validate, TaskController.updateSubtasks);
 router.post('/:id/attachments', authenticate, taskIdValidator, validate, upload.single('file'), TaskController.addAttachment);

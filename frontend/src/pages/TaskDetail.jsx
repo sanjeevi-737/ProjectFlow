@@ -131,7 +131,7 @@ export const TaskDetail = () => {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      await taskApi.deleteComment ? taskApi.deleteComment(taskId, commentId) : toast.error('Comment deletion not implemented');
+      await taskApi.deleteComment(taskId, commentId);
       setComments((prev) => prev.filter((c) => c._id !== commentId));
     } catch { toast.error('Failed to delete comment'); }
   };

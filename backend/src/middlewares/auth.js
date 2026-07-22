@@ -19,7 +19,7 @@ export const authenticate = async (req, _res, next) => {
     }
 
     if (!user.isEmailVerified) {
-      throw ApiError.unauthorized('Please verify your email first');
+      throw ApiError.forbidden('Please verify your email first');
     }
 
     if (user.isDeleted) {

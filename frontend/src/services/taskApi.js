@@ -10,6 +10,7 @@ export const taskApi = {
   move: (id, data) => api.patch(`/tasks/${id}/move`, data),
   addComment: (id, text) => api.post(`/tasks/${id}/comments`, { text }),
   getComments: (id) => api.get(`/tasks/${id}/comments`),
+  deleteComment: (taskId, commentId) => api.delete(`/tasks/${taskId}/comments/${commentId}`),
   updateChecklist: (id, checklist) => api.patch(`/tasks/${id}/checklist`, { checklist }),
   updateSubtasks: (id, subtasks) => api.patch(`/tasks/${id}/subtasks`, { subtasks }),
   addAttachment: (id, formData) => api.post(`/tasks/${id}/attachments`, formData, {

@@ -3,6 +3,7 @@ import api from './api';
 export const workspaceApi = {
   create: (data) => api.post('/workspaces', data),
   getAll: () => api.get('/workspaces'),
+  getMy: () => api.get('/workspaces'),
   getById: (id) => api.get(`/workspaces/${id}`),
   update: (id, data) => api.patch(`/workspaces/${id}`, data),
   delete: (id) => api.delete(`/workspaces/${id}`),

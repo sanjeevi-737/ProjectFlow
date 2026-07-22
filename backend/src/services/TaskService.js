@@ -194,6 +194,24 @@ class TaskService {
       .sort('createdAt');
   }
 
+  async deleteComment(taskId, commentId, userId) {
+    await this.getById(taskId, userId);
+
+    const comment = await Comment.findOne({ _id: commentId, task: taskId });
+    if (!comment) throw ApiError.notFound('Comment not found');
+
+    if (comment.author.toString() !== userId.toString()) {
+      throw ApiError.forbidden('You can only delete your own comments');
+    }
+
+    comment.isDeleted = true;
+    await comment.save();
+
+    emitToTask(taskId, 'comment:deleted', { commentId, taskId });
+
+    return comment;
+  }
+
   async updateChecklist(taskId, checklist, userId) {
     const task = await this.getById(taskId, userId);
     task.checklist = checklist;

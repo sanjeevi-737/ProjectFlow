@@ -17,10 +17,16 @@ RUN npm run build
 FROM base AS production
 RUN apk add --no-cache curl
 
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
 WORKDIR /app
 
 COPY --from=backend-build /app/backend ./backend
 COPY --from=frontend-build /app/frontend/dist ./frontend/dist
+
+RUN chown -R appuser:appgroup /app
+
+USER appuser
 
 EXPOSE 5000
 

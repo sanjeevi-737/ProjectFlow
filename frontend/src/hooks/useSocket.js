@@ -18,6 +18,12 @@ export const useSocket = () => {
     const socket = io('/', {
       auth: { token: accessToken },
       transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      timeout: 10000,
+      autoConnect: true,
     });
 
     socket.on('connect', () => {
@@ -26,16 +32,24 @@ export const useSocket = () => {
 
     socket.on('disconnect', (reason) => {
       console.log('Socket disconnected:', reason);
+      if (reason === 'io server disconnect') {
+        socketRef.current = null;
+      }
     });
 
     socket.on('connect_error', (error) => {
       console.error('Socket connection error:', error.message);
+      if (socket.retries >= socket._opts.reconnectionAttempts) {
+        socket.disconnect();
+        socketRef.current = null;
+      }
     });
 
     socketRef.current = socket;
 
     return () => {
       socket.disconnect();
+      socketRef.current = null;
     };
   }, [isAuthenticated, accessToken]);
 

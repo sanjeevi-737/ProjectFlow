@@ -56,6 +56,11 @@ export const getComments = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { data: comments });
 });
 
+export const deleteComment = asyncHandler(async (req, res) => {
+  await TaskService.deleteComment(req.params.id, req.params.commentId, req.user._id);
+  ApiResponse.success(res, { message: 'Comment deleted' });
+});
+
 export const updateChecklist = asyncHandler(async (req, res) => {
   const task = await TaskService.updateChecklist(req.params.id, req.body.checklist, req.user._id);
   ApiResponse.success(res, { data: task });

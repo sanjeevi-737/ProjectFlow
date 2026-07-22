@@ -161,7 +161,7 @@ export const Tasks = () => {
                       </td>
                       <td className="py-3 px-4">
                         {task.dueDate ? (
-                          <span className={cn('text-xs', new Date(task.dueDate) < new Date() && !task.column === 'Completed' ? 'text-red-500' : 'text-dark-500')}>
+                          <span className={cn('text-xs', new Date(task.dueDate) < new Date() && task.column !== 'Completed' ? 'text-red-500' : 'text-dark-500')}>
                             {new Date(task.dueDate).toLocaleDateString()}
                           </span>
                         ) : (

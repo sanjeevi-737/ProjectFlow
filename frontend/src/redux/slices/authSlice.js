@@ -69,16 +69,25 @@ export const fetchCurrentUser = createAsyncThunk(
       const { data } = await authApi.getMe();
       return data.data;
     } catch (error) {
-      const state = getState().auth;
-      if (error.response?.status === 401 && state.refreshToken) {
-        try {
-          const refreshRes = await authApi.refreshToken(state.refreshToken);
-          const { user } = refreshRes.data.data;
-          return user;
-        } catch {
-          return rejectWithValue('Session expired');
+      const status = error.response?.status;
+
+      if (status === 403) {
+        return rejectWithValue('EMAIL_NOT_VERIFIED');
+      }
+
+      if (status === 401) {
+        const state = getState().auth;
+        if (state.refreshToken) {
+          try {
+            const refreshRes = await authApi.refreshToken(state.refreshToken);
+            const { user } = refreshRes.data.data;
+            return user;
+          } catch {
+            return rejectWithValue('Session expired');
+          }
         }
       }
+
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch user');
     }
   }
@@ -189,13 +198,18 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         saveState(state);
       })
-      .addCase(fetchCurrentUser.rejected, (state) => {
+      .addCase(fetchCurrentUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.isAuthenticated = false;
-        state.user = null;
-        state.accessToken = null;
-        state.refreshToken = null;
-        saveState(state);
+        if (action.payload === 'EMAIL_NOT_VERIFIED') {
+          state.error = 'Please verify your email first';
+          state.isAuthenticated = false;
+        } else {
+          state.isAuthenticated = false;
+          state.user = null;
+          state.accessToken = null;
+          state.refreshToken = null;
+          saveState(state);
+        }
       })
       .addCase(verifyEmailThunk.pending, (state) => {
         state.isLoading = true;

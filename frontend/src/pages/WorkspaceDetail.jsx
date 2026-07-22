@@ -7,6 +7,7 @@ import { InviteMemberModal } from '../components/modals/InviteMemberModal';
 import { HiOutlineFolder, HiOutlineUsers, HiOutlineCog, HiOutlineUserAdd, HiOutlineTrash, HiOutlineExternalLink, HiOutlineClipboardList, HiOutlineShieldCheck } from 'react-icons/hi';
 import { cn } from '../utils/cn';
 import { getInitials, formatDate } from '../utils/formatters';
+import { useAuth } from '../hooks/useAuth';
 
 const tabs = [
   { id: 'overview', label: 'Overview', icon: HiOutlineFolder },
@@ -25,6 +26,7 @@ export const WorkspaceDetail = () => {
   const [editName, setEditName] = useState('');
   const [editDesc, setEditDesc] = useState('');
   const [saving, setSaving] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     loadWorkspace();
@@ -98,7 +100,8 @@ export const WorkspaceDetail = () => {
 
   if (!workspace) return null;
 
-  const isAdmin = workspace.members?.some((m) => m.role === 'admin' || m.role === 'project_manager');
+  const currentUserMember = workspace.members?.find((m) => (m.user?._id || m.user) === user?._id);
+  const isAdmin = currentUserMember?.role === 'admin' || currentUserMember?.role === 'project_manager' || workspace.owner?._id === user?._id;
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
