@@ -74,13 +74,17 @@ class AuthService {
       throw ApiError.unauthorized('Invalid email or password');
     }
 
+    if (!user.isEmailVerified) {
+      throw ApiError.forbidden('Please verify your email first');
+    }
+
     const tokens = this.generateTokens(user._id);
     await this.storeRefreshToken(user, tokens.refreshToken);
 
     user.lastLogin = new Date();
     await user.save();
 
-    return { user, ...tokens };
+    return { user, ...tokens, isEmailVerified: user.isEmailVerified };
   }
 
   async logout(userId, refreshToken) {

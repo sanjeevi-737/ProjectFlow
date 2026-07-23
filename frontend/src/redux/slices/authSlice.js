@@ -155,8 +155,11 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
-        state.isAuthenticated = true;
-        if (!action.payload.isEmailVerified) {
+        if (action.payload.isEmailVerified) {
+          state.isAuthenticated = true;
+          state.error = null;
+        } else {
+          state.isAuthenticated = false;
           state.error = 'Please verify your email first';
         }
         saveState(state);
@@ -183,7 +186,13 @@ const authSlice = createSlice({
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
-        state.isAuthenticated = true;
+        if (action.payload.isEmailVerified) {
+          state.isAuthenticated = true;
+          state.error = null;
+        } else {
+          state.isAuthenticated = false;
+          state.error = 'Please verify your email first';
+        }
         saveState(state);
       })
       .addCase(fetchCurrentUser.rejected, (state, action) => {
@@ -191,6 +200,10 @@ const authSlice = createSlice({
         if (action.payload === 'EMAIL_NOT_VERIFIED') {
           state.error = 'Please verify your email first';
           state.isAuthenticated = false;
+          state.user = null;
+          state.accessToken = null;
+          state.refreshToken = null;
+          saveState(state);
         } else {
           state.isAuthenticated = false;
           state.user = null;

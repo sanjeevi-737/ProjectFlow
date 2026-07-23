@@ -35,7 +35,7 @@ export const Login = () => {
 
   const onSubmit = async (data) => {
     const result = await login(data);
-    if (result.meta.requestStatus === 'fulfilled') {
+    if (result.meta.requestStatus === 'fulfilled' && result.payload.isEmailVerified) {
       toast.success('Welcome back!');
     }
   };
