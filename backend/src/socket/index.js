@@ -7,9 +7,11 @@ const onlineUsers = new Map();
 let io = null;
 
 export const setupSocket = (httpServer) => {
+  const allowedOrigins = config.clientUrl.split(',').map(s => s.trim()).filter(Boolean);
+
   io = new Server(httpServer, {
     cors: {
-      origin: config.clientUrl,
+      origin: allowedOrigins,
       methods: ['GET', 'POST', 'PATCH', 'DELETE'],
       credentials: true,
     },

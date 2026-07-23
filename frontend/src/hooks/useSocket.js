@@ -2,6 +2,12 @@ import { useEffect, useRef, useCallback } from 'react';
 import { io } from 'socket.io-client';
 import { useSelector } from 'react-redux';
 
+const getSocketUrl = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  if (!apiUrl || apiUrl === '/api') return '/';
+  return apiUrl.replace(/\/api\/?$/, '');
+};
+
 export const useSocket = () => {
   const socketRef = useRef(null);
   const { accessToken, isAuthenticated } = useSelector((state) => state.auth);
@@ -15,8 +21,9 @@ export const useSocket = () => {
       return;
     }
 
-    const socket = io('/', {
+    const socket = io(getSocketUrl(), {
       auth: { token: accessToken },
+      path: '/socket.io',
       transports: ['websocket', 'polling'],
       reconnection: true,
       reconnectionAttempts: 5,
@@ -26,23 +33,17 @@ export const useSocket = () => {
       autoConnect: true,
     });
 
-    socket.on('connect', () => {
-      console.log('Socket connected');
-    });
+    socket.on('connect', () => {});
 
     socket.on('disconnect', (reason) => {
-      console.log('Socket disconnected:', reason);
       if (reason === 'io server disconnect') {
         socketRef.current = null;
       }
     });
 
-    socket.on('connect_error', (error) => {
-      console.error('Socket connection error:', error.message);
-      if (socket.retries >= socket._opts.reconnectionAttempts) {
-        socket.disconnect();
-        socketRef.current = null;
-      }
+    socket.on('connect_error', () => {
+      socket.disconnect();
+      socketRef.current = null;
     });
 
     socketRef.current = socket;
