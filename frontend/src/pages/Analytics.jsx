@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, CartesianGrid, Legend } from 'recharts';
 import toast from 'react-hot-toast';
 import { dashboardApi } from '../services/dashboardApi';
-import { HiOutlineChartBar, HiOutlineTrendingUp, HiOutlineClipboardList, HiOutlineCheckCircle, HiOutlineClock, HiOutlineExclamationCircle } from 'react-icons/hi';
+import { HiOutlineTrendingUp, HiOutlineClipboardList, HiOutlineCheckCircle, HiOutlineClock, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { cn } from '../utils/cn';
 
 const statusColors = { 'To Do': '#6b7280', 'In Progress': '#3b82f6', Review: '#f59e0b', Completed: '#10b981' };

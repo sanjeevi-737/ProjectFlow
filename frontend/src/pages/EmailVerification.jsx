@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { verifyEmailThunk } from '../redux/slices/authSlice';
-import { HiOutlineCheckCircle, HiOutlineXCircle, HiOutlineMail } from 'react-icons/hi';
+import { HiOutlineCheckCircle, HiOutlineXCircle } from 'react-icons/hi';
 
 export const EmailVerification = () => {
   const [searchParams] = useSearchParams();

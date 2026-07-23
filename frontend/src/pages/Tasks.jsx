@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { taskApi } from '../services/taskApi';
 import { workspaceApi } from '../services/workspaceApi';
 import { projectApi } from '../services/projectApi';
-import { HiOutlinePlus, HiOutlineSearch, HiOutlineCalendar, HiOutlineChat, HiOutlinePaperClip } from 'react-icons/hi';
+import { HiOutlinePlus, HiOutlineSearch, HiOutlineChat, HiOutlinePaperClip } from 'react-icons/hi';
 import { cn } from '../utils/cn';
 import { getInitials } from '../utils/formatters';
 

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { workspaceApi } from '../services/workspaceApi';
 import { CreateWorkspaceModal } from '../components/modals/CreateWorkspaceModal';
-import { HiOutlinePlus, HiOutlineFolder, HiOutlineUsers, HiOutlineDotsHorizontal } from 'react-icons/hi';
+import { HiOutlinePlus, HiOutlineFolder, HiOutlineUsers } from 'react-icons/hi';
 
 export const Workspaces = () => {
   const [workspaces, setWorkspaces] = useState([]);

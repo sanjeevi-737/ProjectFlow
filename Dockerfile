@@ -5,9 +5,10 @@ WORKDIR /app/backend
 COPY backend/package*.json ./
 RUN npm ci --omit=dev
 COPY backend/src ./src
-COPY backend/.env.example ./.env
 
 FROM base AS frontend-build
+ARG VITE_API_URL=/api
+ENV VITE_API_URL=$VITE_API_URL
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm ci

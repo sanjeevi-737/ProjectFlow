@@ -1,8 +1,8 @@
 node_modules/
 npm-debug.log
 .env
-.env.local
-.env.production
+.env.*
+!.env.example
 .git
 .gitignore
 *.md
@@ -16,3 +16,11 @@ coverage/
 *.log
 .DS_Store
 Thumbs.db
+__tests__/
+*.test.js
+*.test.jsx
+jest.config.js
+vitest.config.js
+eslint.config.js
+postcss.config.js
+.github/

@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { v4 as uuidv4 } from 'uuid';
 
 export const hashPassword = async (password) => {
   return bcrypt.hash(password, 12);
@@ -19,7 +18,7 @@ export const generateOTP = (length = 6) => {
 };
 
 export const generateInviteCode = () => {
-  return uuidv4().split('-')[0].toUpperCase();
+  return crypto.randomUUID().split('-')[0].toUpperCase();
 };
 
 export const sanitizeUser = (user) => {

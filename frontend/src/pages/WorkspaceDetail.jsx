@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { workspaceApi } from '../services/workspaceApi';
 import { InviteMemberModal } from '../components/modals/InviteMemberModal';
-import { HiOutlineFolder, HiOutlineUsers, HiOutlineCog, HiOutlineUserAdd, HiOutlineTrash, HiOutlineExternalLink, HiOutlineClipboardList, HiOutlineShieldCheck } from 'react-icons/hi';
+import { HiOutlineFolder, HiOutlineUsers, HiOutlineCog, HiOutlineUserAdd, HiOutlineTrash, HiOutlineClipboardList, HiOutlineShieldCheck } from 'react-icons/hi';
 import { cn } from '../utils/cn';
 import { getInitials, formatDate } from '../utils/formatters';
 import { useAuth } from '../hooks/useAuth';

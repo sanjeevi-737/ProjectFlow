@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import toast from 'react-hot-toast';
 import { dashboardApi } from '../services/dashboardApi';
-import { HiOutlineClipboardList, HiOutlineCheckCircle, HiOutlineClock, HiOutlineExclamationCircle, HiOutlineFolder, HiOutlinePlus, HiOutlineArrowRight } from 'react-icons/hi';
+import { HiOutlineClipboardList, HiOutlineCheckCircle, HiOutlineExclamationCircle, HiOutlineFolder, HiOutlinePlus, HiOutlineArrowRight } from 'react-icons/hi';
 import { cn } from '../utils/cn';
 import { timeAgo, getInitials } from '../utils/formatters';
 

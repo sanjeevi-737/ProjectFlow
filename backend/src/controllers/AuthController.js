@@ -20,7 +20,7 @@ export const verifyEmail = asyncHandler(async (req, res) => {
 });
 
 export const login = asyncHandler(async (req, res) => {
-  const { user, accessToken, refreshToken } = await AuthService.login(req.body);
+  const { user, accessToken, refreshToken, isEmailVerified } = await AuthService.login(req.body);
 
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
@@ -35,6 +35,7 @@ export const login = asyncHandler(async (req, res) => {
       user: sanitizeUser(user),
       accessToken,
       refreshToken,
+      isEmailVerified,
     },
   });
 });

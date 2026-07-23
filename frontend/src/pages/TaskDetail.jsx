@@ -5,9 +5,9 @@ import toast from 'react-hot-toast';
 import { taskApi } from '../services/taskApi';
 import { projectApi } from '../services/projectApi';
 import { useSocket } from '../hooks/useSocket';
-import { HiOutlinePaperClip, HiOutlineChat, HiOutlineCalendar, HiOutlineClock, HiOutlineTrash, HiOutlinePencil, HiOutlineCheck, HiOutlineX, HiOutlinePlus, HiOutlineDotsHorizontal, HiOutlineArrowLeft } from 'react-icons/hi';
+import { HiOutlinePaperClip, HiOutlineChat, HiOutlineCalendar, HiOutlineClock, HiOutlineTrash, HiOutlinePencil, HiOutlineCheck, HiOutlineX, HiOutlinePlus } from 'react-icons/hi';
 import { cn } from '../utils/cn';
-import { getInitials, formatDate, formatDateTime, timeAgo, formatDueDate, formatFileSize } from '../utils/formatters';
+import { getInitials, formatDate, timeAgo, formatDueDate, formatFileSize } from '../utils/formatters';
 
 const priorityOptions = ['none', 'low', 'medium', 'high', 'urgent'];
 const priorityStyles = {

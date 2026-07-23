@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { projectApi } from '../services/projectApi';
 import { workspaceApi } from '../services/workspaceApi';
 import { CreateProjectModal } from '../components/modals/CreateProjectModal';
-import { HiOutlinePlus, HiOutlineClipboardList, HiOutlineUsers, HiOutlineCalendar, HiOutlineDotsHorizontal, HiOutlineFolder } from 'react-icons/hi';
+import { HiOutlinePlus, HiOutlineClipboardList, HiOutlineUsers, HiOutlineDotsHorizontal, HiOutlineFolder } from 'react-icons/hi';
 import { cn } from '../utils/cn';
 import { formatDate } from '../utils/formatters';
 

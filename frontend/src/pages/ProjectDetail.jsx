@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { projectApi } from '../services/projectApi';
 import { boardApi } from '../services/boardApi';
-import { HiOutlineClipboardList, HiOutlineUsers, HiOutlineCog, HiOutlinePlus, HiOutlineTrash, HiOutlineExternalLink, HiOutlineCalendar } from 'react-icons/hi';
+import { HiOutlineClipboardList, HiOutlineUsers, HiOutlineCog, HiOutlinePlus, HiOutlineTrash, HiOutlineExternalLink } from 'react-icons/hi';
 import { cn } from '../utils/cn';
 import { getInitials, formatDate } from '../utils/formatters';
 

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Outlet, Navigate, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { Outlet, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { Sidebar } from './Sidebar';
 import { Navbar } from './Navbar';
@@ -10,8 +10,6 @@ import { cn } from '../utils/cn';
 export const AppLayout = () => {
   const { isAuthenticated, isLoading, user } = useSelector((state) => state.auth);
   const { sidebarOpen } = useSelector((state) => state.ui);
-  const dispatch = useDispatch();
-  const location = useLocation();
 
   const { joinWorkspace, joinProject, onNotificationReceived, onTaskUpdated, onTaskMoved } = useSocket();
 

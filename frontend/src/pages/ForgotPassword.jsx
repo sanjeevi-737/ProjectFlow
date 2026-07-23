@@ -32,7 +32,7 @@ export const ForgotPassword = () => {
           <h2 className="text-xl font-bold text-dark-900 dark:text-dark-100 mb-2">Check your email</h2>
           <p className="text-dark-500 mb-6">
             If an account exists for <strong className="text-dark-700 dark:text-dark-300">{email}</strong>,
-            you'll receive a password reset link shortly.
+            you&apos;ll receive a password reset link shortly.
           </p>
           <Link to="/login" className="btn-primary inline-flex">Back to Login</Link>
         </div>
@@ -48,7 +48,7 @@ export const ForgotPassword = () => {
         </Link>
         <div className="card">
           <h2 className="text-xl font-bold text-dark-900 dark:text-dark-100 mb-2">Forgot password?</h2>
-          <p className="text-dark-500 text-sm mb-6">Enter your email and we'll send you a reset link.</p>
+          <p className="text-dark-500 text-sm mb-6">Enter your email and we&apos;ll send you a reset link.</p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-dark-700 dark:text-dark-300 mb-1.5">Email</label>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { workspaceApi } from '../services/workspaceApi';
-import { HiOutlineUsers, HiOutlineMail, HiOutlineShieldCheck, HiOutlineCalendar, HiOutlineFolder, HiOutlineSearch } from 'react-icons/hi';
+import { HiOutlineUsers, HiOutlineMail, HiOutlineCalendar, HiOutlineFolder, HiOutlineSearch } from 'react-icons/hi';
 import { getInitials, formatDate } from '../utils/formatters';
 import { cn } from '../utils/cn';
 

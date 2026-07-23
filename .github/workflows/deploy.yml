@@ -42,3 +42,5 @@ jobs:
           file: frontend/Dockerfile
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.repository | lower }}/frontend:latest,${{ env.REGISTRY }}/${{ github.repository | lower }}/frontend:${{ github.sha }}
+          build-args: |
+            VITE_API_URL=${{ vars.VITE_API_URL }}

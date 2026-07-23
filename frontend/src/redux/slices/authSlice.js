@@ -10,7 +10,7 @@ const loadState = () => {
       user,
       accessToken,
       refreshToken,
-      isAuthenticated: !!accessToken,
+      isAuthenticated: false,
       isLoading: !!accessToken,
       error: null,
     };
@@ -64,28 +64,13 @@ export const registerUser = createAsyncThunk(
 
 export const fetchCurrentUser = createAsyncThunk(
   'auth/fetchCurrentUser',
-  async (_, { getState, rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await authApi.getMe();
       return data.data;
     } catch (error) {
-      const status = error.response?.status;
-
-      if (status === 403) {
+      if (error.response?.status === 403) {
         return rejectWithValue('EMAIL_NOT_VERIFIED');
-      }
-
-      if (status === 401) {
-        const state = getState().auth;
-        if (state.refreshToken) {
-          try {
-            const refreshRes = await authApi.refreshToken(state.refreshToken);
-            const { user } = refreshRes.data.data;
-            return user;
-          } catch {
-            return rejectWithValue('Session expired');
-          }
-        }
       }
 
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch user');
@@ -171,6 +156,9 @@ const authSlice = createSlice({
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
         state.isAuthenticated = true;
+        if (!action.payload.isEmailVerified) {
+          state.error = 'Please verify your email first';
+        }
         saveState(state);
       })
       .addCase(loginUser.rejected, (state, action) => {

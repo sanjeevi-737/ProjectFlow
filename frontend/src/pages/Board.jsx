@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { boardApi } from '../services/boardApi';
 import { taskApi } from '../services/taskApi';
 import { useSocket } from '../hooks/useSocket';
-import { HiOutlinePlus, HiOutlineCalendar, HiOutlineChat, HiOutlinePaperClip } from 'react-icons/hi';
+import { HiOutlinePlus, HiOutlineCalendar } from 'react-icons/hi';
 import { cn } from '../utils/cn';
 import { getInitials } from '../utils/formatters';
 

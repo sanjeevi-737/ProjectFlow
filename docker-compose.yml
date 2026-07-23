@@ -5,14 +5,14 @@ services:
     image: mongo:7
     container_name: projflow-mongodb
     restart: unless-stopped
-    ports:
-      - '27017:27017'
     volumes:
       - mongodb_data:/data/db
     environment:
       MONGO_INITDB_DATABASE: projflow
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-projflow}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-changeme}
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet -u "$$MONGO_INITDB_ROOT_USERNAME" -p "$$MONGO_INITDB_ROOT_PASSWORD" --authenticationDatabase admin
       interval: 30s
       timeout: 5s
       retries: 5
@@ -31,9 +31,9 @@ services:
     env_file:
       - ./backend/.env
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/projflow
+      - MONGODB_URI=mongodb://${MONGO_USER:-projflow}:${MONGO_PASSWORD:-changeme}@mongodb:27017/projflow?authSource=admin
       - NODE_ENV=production
-      - CLIENT_URL=http://localhost:5173
+      - CLIENT_URL=http://localhost:5173,https://project-flow-two-lilac.vercel.app
     volumes:
       - backend_uploads:/app/backend/uploads
     healthcheck:
@@ -47,14 +47,14 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:5000/api}
     container_name: projflow-frontend
     restart: unless-stopped
     ports:
       - '5173:80'
     depends_on:
       - backend
-    environment:
-      - VITE_API_URL=http://localhost:5000/api
 
 volumes:
   mongodb_data:

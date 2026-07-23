@@ -116,7 +116,7 @@ class AuthService {
       await this.storeRefreshToken(user, tokens.refreshToken);
       await user.save();
 
-      return { user, ...tokens };
+    return { user, ...tokens, isEmailVerified: user.isEmailVerified };
     } catch (error) {
       if (error instanceof ApiError) throw error;
       throw ApiError.unauthorized('Invalid refresh token');
